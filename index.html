@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Qualixto — Hands-on Data &amp; AI Platform Engineering</title>
+<meta name="description" content="Qualixto is an independent data & AI platform engineering consultancy. Cloud data platforms, dbt/Dagster pipelines, governance, and AI-ready foundations for regulated enterprises.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>▮</text></svg>">
+<style>
+  :root {
+    --bg: #0b0e11;
+    --bg-raised: #12161b;
+    --border: #23282f;
+    --text: #e7eaee;
+    --text-dim: #97a1ad;
+    --accent: #5ee0b0;
+    --accent-dim: #2f5c4d;
+    --mono: "SFMono-Regular", "JetBrains Mono", Consolas, Menlo, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+    --maxw: 880px;
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      --bg: #fafaf8;
+      --bg-raised: #ffffff;
+      --border: #e3e3df;
+      --text: #16181c;
+      --text-dim: #5b6470;
+      --accent: #0f8a5f;
+      --accent-dim: #d6f0e5;
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #fafaf8;
+    --bg-raised: #ffffff;
+    --border: #e3e3df;
+    --text: #16181c;
+    --text-dim: #5b6470;
+    --accent: #0f8a5f;
+    --accent-dim: #d6f0e5;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.55;
+    margin: 0;
+    padding: 0 20px;
+  }
+  .wrap { max-width: var(--maxw); margin: 0 auto; }
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: 22px;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .logo {
+    font-family: var(--mono);
+    font-weight: 600;
+    font-size: 1.05rem;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .logo .dot { color: var(--accent); }
+  nav { display: flex; gap: 22px; flex-wrap: wrap; }
+  nav a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.92rem;
+  }
+  nav a:hover { color: var(--accent); }
+
+  .kicker {
+    font-family: var(--mono);
+    color: var(--accent);
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin: 0 0 10px;
+  }
+
+  .hero { padding-block: 68px 44px; }
+  h1 {
+    font-size: clamp(1.8rem, 4.2vw, 2.7rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 0 0 18px;
+  }
+  .lede {
+    color: var(--text-dim);
+    font-size: 1.1rem;
+    max-width: 62ch;
+    margin: 0 0 30px;
+  }
+
+  .btn-row { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    text-decoration: none;
+    font-weight: 600;
+    border: 1px solid transparent;
+  }
+  .btn-primary { background: var(--accent); color: #06110c; }
+  .btn-primary:hover { opacity: 0.88; }
+  .btn-secondary {
+    border-color: var(--border);
+    color: var(--text);
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+  section { padding-block: 52px; border-top: 1px solid var(--border); }
+  h2 {
+    font-size: 1.5rem;
+    letter-spacing: -0.01em;
+    margin: 0 0 8px;
+  }
+  .section-lede {
+    color: var(--text-dim);
+    margin: 0 0 36px;
+    max-width: 60ch;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 720px) { .grid-3 { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px;
+  }
+  .card h3 {
+    font-size: 1.02rem;
+    margin: 0 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card h3 .tag {
+    font-family: var(--mono);
+    color: var(--accent);
+    font-size: 0.9rem;
+  }
+  .card p { color: var(--text-dim); margin: 0; font-size: 0.94rem; }
+
+  .stack-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .pill {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 4px 10px;
+  }
+
+  .projects { display: flex; flex-direction: column; gap: 18px; }
+  .project {
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 20px;
+  }
+  @media (max-width: 720px) { .project { grid-template-columns: 1fr; } }
+  .project .meta {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--text-dim);
+  }
+  .project .meta .domain {
+    display: block;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .project h3 { margin: 0 0 10px; font-size: 1.08rem; }
+  .project p { margin: 0 0 10px; color: var(--text-dim); font-size: 0.94rem; }
+  .project ul {
+    margin: 10px 0 0;
+    padding-left: 18px;
+    color: var(--text-dim);
+    font-size: 0.9rem;
+  }
+  .project li { margin-bottom: 4px; }
+  .impact {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--accent);
+    margin-top: 10px;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  @media (max-width: 720px) { .contact-grid { grid-template-columns: 1fr; } }
+  .contact-card {
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 26px;
+  }
+  .contact-card h3 { margin: 0 0 8px; font-size: 1.05rem; }
+  .contact-card p { color: var(--text-dim); margin: 0 0 18px; font-size: 0.94rem; }
+  .contact-card a.email {
+    font-family: var(--mono);
+    color: var(--text);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--border);
+  }
+  .contact-card a.email:hover { color: var(--accent); border-color: var(--accent); }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding-block: 28px 40px;
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  footer a { color: var(--text-dim); }
+  footer a:hover { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <a class="logo" href="#top"><span class="dot">▮</span>Qualixto</a>
+    <nav>
+      <a href="#what-we-do">What we do</a>
+      <a href="#projects">Past projects</a>
+      <a href="#contact">Contact</a>
+      <a href="#book" class="btn-secondary" style="padding:6px 14px;border:1px solid var(--border);border-radius:6px;">Book a call</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="top">
+    <p class="kicker">Data &amp; AI Platform Engineering</p>
+    <h1>We build data platforms your engineers can trust — and ship them ourselves.</h1>
+    <p class="lede">
+      Qualixto is an independent consultancy for hands-on cloud data platform engineering.
+      We architect and personally build production pipelines, data products, and governance
+      frameworks for regulated financial services and investment management — no bench of
+      juniors, no slideware, just working systems.
+    </p>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="#book">Book a consultancy call</a>
+      <a class="btn btn-secondary" href="#projects">See past projects</a>
+    </div>
+  </section>
+
+  <section id="what-we-do">
+    <h2>What we do</h2>
+    <p class="section-lede">
+      End-to-end data platform delivery — from first architecture decision to production
+      pipelines your team can operate without us.
+    </p>
+    <div class="grid-3">
+      <div class="card">
+        <h3><span class="tag">01</span>Platform architecture</h3>
+        <p>Cloud data lakehouse and orchestration platforms on AWS, Azure, or GCP — medallion
+        architectures, domain-driven data products, and orchestration built to be handed over,
+        not to create dependency.</p>
+      </div>
+      <div class="card">
+        <h3><span class="tag">02</span>Hands-on pipeline delivery</h3>
+        <p>Production dbt models and Python pipelines with schema validation, contracts, lineage,
+        and automated testing — written and shipped by us, not just designed on a whiteboard.</p>
+      </div>
+      <div class="card">
+        <h3><span class="tag">03</span>Governance &amp; compliance</h3>
+        <p>Data contracts, RBAC, classification, and audit-ready governance for regulated
+        environments — banking, lending, investment management, and energy.</p>
+      </div>
+      <div class="card">
+        <h3><span class="tag">04</span>CI/CD &amp; platform hygiene</h3>
+        <p>Release process modernisation, GitFlow adoption, pre-commit standards, and branch
+        protection across large multi-repo estates that have stalled or drifted.</p>
+      </div>
+      <div class="card">
+        <h3><span class="tag">05</span>AI-ready foundations</h3>
+        <p>Governed data platforms built so LLM and analytics workloads have trustworthy,
+        well-modelled data to sit on top of — plus direct experience shipping Bedrock and
+        SageMaker-backed pipelines.</p>
+      </div>
+      <div class="card">
+        <h3><span class="tag">06</span>Team &amp; standards building</h3>
+        <p>Embedded engagements that leave behind not just a platform but the delivery
+        standards, roles, and practices a growing data team needs to run it well.</p>
+      </div>
+    </div>
+    <div class="stack-pills">
+      <span class="pill">Python</span>
+      <span class="pill">dbt</span>
+      <span class="pill">Dagster</span>
+      <span class="pill">Airflow</span>
+      <span class="pill">Snowflake</span>
+      <span class="pill">Databricks</span>
+      <span class="pill">AWS</span>
+      <span class="pill">Azure</span>
+      <span class="pill">GCP</span>
+      <span class="pill">Terraform</span>
+      <span class="pill">GitHub Actions</span>
+      <span class="pill">AWS Bedrock</span>
+      <span class="pill">SageMaker</span>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Past projects</h2>
+    <p class="section-lede">
+      Representative engagements. Client names are withheld per our confidentiality practice —
+      happy to speak to relevant experience directly on a call.
+    </p>
+    <div class="projects">
+
+      <div class="project">
+        <div class="meta">
+          <span class="domain">Investment management</span>
+          Platform &amp; data engineering contract
+        </div>
+        <div>
+          <h3>CI/CD modernisation across a 249-repo estate</h3>
+          <p>Embedded in the investment data team at a global multi-asset investment manager.
+          Led release process modernisation and dbt/Dagster pipeline delivery across trading,
+          research, and reconciliation data products.</p>
+          <ul>
+            <li>Unblocked 140+ commits stuck in long-lived branches by introducing GitFlow</li>
+            <li>Extended an existing raw / staging / curated / use-case medallion pattern</li>
+            <li>Piloted the Open Data Contract Standard and freshness/volume observability</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="meta">
+          <span class="domain">SME &amp; enterprise data platforms</span>
+          First data hire, platform build
+        </div>
+        <div>
+          <h3>Governed medallion lakehouse replacing legacy integrations</h3>
+          <p>As the first data hire, architected and hand-coded a Python, Dagster, and dbt
+          platform on Azure and Snowflake, replacing legacy Java integration patterns end to end.</p>
+          <ul>
+            <li>Cut new source-system connector delivery from 3–5 months to 2–3 weeks</li>
+            <li>Established data contracts, schema evolution, lineage, and automated testing</li>
+            <li>Grew the data function from one specialist hire to a seven-person team</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="meta">
+          <span class="domain">Regulated banking</span>
+          Enterprise transformation programme
+        </div>
+        <div>
+          <h3>Unified customer view across a multi-acquisition banking platform</h3>
+          <p>Architected an Azure/Databricks/dbt data platform supporting a large-scale
+          integration programme consolidating multiple acquired businesses into one regulated
+          banking platform.</p>
+          <ul>
+            <li>Built and led the data function from 7 to 22 engineers</li>
+            <li>Delivered a single customer view for regulatory and operational reporting</li>
+            <li>Established an operating model for batch and real-time data products</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="meta">
+          <span class="domain">Lending &amp; energy</span>
+          Platform migration and AI pipelines
+        </div>
+        <div>
+          <h3>Legacy-to-cloud migrations and AI-driven pipelines</h3>
+          <p>Migrated core analytics from legacy MySQL to an AWS-based platform for a lending
+          business, and built AWS/Snowflake pipelines using SageMaker and Bedrock for
+          LLM-driven deal automation in a regulated energy environment.</p>
+          <ul>
+            <li>Automated ETL and CI/CD for near-real-time lending data products</li>
+            <li>Delivered production dbt and Airflow patterns for lineage and testing</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Get in touch</h2>
+    <p class="section-lede">
+      Whether it's a specific platform problem or a broader transformation, the fastest way
+      to find out if we're a fit is a short call.
+    </p>
+    <div class="contact-grid">
+      <div class="contact-card" id="book">
+        <h3>Book a consultancy call</h3>
+        <p>30 minutes, no obligation. We'll talk through what you're trying to solve and
+        whether hands-on help makes sense.</p>
+        <a class="btn btn-primary" href="https://cal.com/qualixto/consultancy" target="_blank" rel="noopener">
+          Book on Cal.com →
+        </a>
+        <p style="margin-top:10px;font-size:0.8rem;">
+          <em>Placeholder link — replace with your real Cal.com/Calendly URL.</em>
+        </p>
+      </div>
+      <div class="contact-card">
+        <h3>Email us directly</h3>
+        <p>Prefer email, or have something to send ahead of a call? Reach out directly.</p>
+        <a class="email" href="mailto:hello@qualixto.co.uk">hello@qualixto.co.uk</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© <span id="year"></span> Qualixto Ltd. London, UK.</span>
+    <span><a href="mailto:hello@qualixto.co.uk">hello@qualixto.co.uk</a> · <a href="https://github.com/jitsejan" target="_blank" rel="noopener">GitHub</a></span>
+  </footer>
+
+</div>
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
