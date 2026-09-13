@@ -32,8 +32,8 @@ One-time setup:
 
 ## Before going live
 
-- [ ] Replace the placeholder booking link in `index.html` (`#book` section)
-      with a real Cal.com/Calendly URL.
+- [x] Booking link in `index.html` (`#book` section) points to the real
+      Google Calendar booking page.
 - [ ] Confirm `hello@qualixto.com` is set up in Google Workspace and receiving mail.
 - [ ] Verify DNS + HTTPS on qualixto.com (GitHub Pages auto-provisions a cert
       once DNS resolves).
