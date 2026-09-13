@@ -1,6 +1,6 @@
 # qualixto.co.uk
 
-Marketing site for Qualixto Ltd — a single static `index.html`, no build step.
+Marketing site for Qualixto Ltd: a single static `index.html`, no build step.
 
 Canonical domain is **qualixto.com**; **qualixto.co.uk** redirects to it.
 
@@ -8,7 +8,7 @@ Canonical domain is **qualixto.com**; **qualixto.co.uk** redirects to it.
 
 Pushes to `main`/`master` deploy automatically to GitHub Pages via
 `.github/workflows/deploy.yml`. The `CNAME` file points GitHub Pages at
-`qualixto.com` — GitHub reads it automatically on deploy.
+`qualixto.com`; GitHub reads it automatically on deploy.
 
 One-time setup:
 
@@ -24,7 +24,7 @@ One-time setup:
    - In GitHub repo **Settings → Pages**, set the custom domain to
      `qualixto.com` and enable **Enforce HTTPS** once DNS has propagated.
 3. In **Cloudflare** for `qualixto.co.uk` (the redirecting domain), do **not**
-   point it at GitHub Pages — GitHub Pages only serves the one domain named in
+   point it at GitHub Pages: GitHub Pages only serves the one domain named in
    `CNAME`. Instead, use a Cloudflare **Bulk Redirect** (or a Page Rule) on
    `qualixto.co.uk/*` → `https://qualixto.com/$1` (301, preserve path/query).
    Keep DNS for `qualixto.co.uk` proxied (orange cloud) so the redirect rule
