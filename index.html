@@ -5,16 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Qualixto — Hands-on Data &amp; AI Platform Engineering</title>
 <meta name="description" content="Qualixto is an independent data & AI platform engineering consultancy. Cloud data platforms, dbt/Dagster pipelines, governance, and AI-ready foundations for regulated enterprises.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>▮</text></svg>">
+<link rel="icon" type="image/svg+xml" href="assets/qualixto-icon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 <style>
   :root {
-    --bg: #0b0e11;
-    --bg-raised: #12161b;
-    --border: #23282f;
-    --text: #e7eaee;
-    --text-dim: #97a1ad;
-    --accent: #5ee0b0;
-    --accent-dim: #2f5c4d;
+    --bg: #0a0e16;
+    --bg-raised: #10151f;
+    --border: #232b3a;
+    --text: #e8ecf5;
+    --text-dim: #94a0b8;
+    --navy: #16233B;
+    --blue: #2E4E86;
+    --accent: #6699FF;
+    --accent-ink: #0a1428;
     --mono: "SFMono-Regular", "JetBrains Mono", Consolas, Menlo, monospace;
     --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
     --maxw: 880px;
@@ -22,23 +26,23 @@
 
   @media (prefers-color-scheme: light) {
     :root:not([data-theme="dark"]) {
-      --bg: #fafaf8;
+      --bg: #f6f7fb;
       --bg-raised: #ffffff;
-      --border: #e3e3df;
-      --text: #16181c;
-      --text-dim: #5b6470;
-      --accent: #0f8a5f;
-      --accent-dim: #d6f0e5;
+      --border: #dde2ec;
+      --text: #131a2a;
+      --text-dim: #57627a;
+      --accent: #2E4E86;
+      --accent-ink: #ffffff;
     }
   }
   :root[data-theme="light"] {
-    --bg: #fafaf8;
+    --bg: #f6f7fb;
     --bg-raised: #ffffff;
-    --border: #e3e3df;
-    --text: #16181c;
-    --text-dim: #5b6470;
-    --accent: #0f8a5f;
-    --accent-dim: #d6f0e5;
+    --border: #dde2ec;
+    --text: #131a2a;
+    --text-dim: #57627a;
+    --accent: #2E4E86;
+    --accent-ink: #ffffff;
   }
 
   * { box-sizing: border-box; }
@@ -56,24 +60,23 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-block: 22px;
+    padding-block: 20px;
     border-bottom: 1px solid var(--border);
     flex-wrap: wrap;
     gap: 12px;
   }
   .logo {
-    font-family: var(--mono);
     font-weight: 600;
-    font-size: 1.05rem;
+    font-size: 1.08rem;
     letter-spacing: -0.02em;
     color: var(--text);
     text-decoration: none;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 9px;
   }
-  .logo .dot { color: var(--accent); }
-  nav { display: flex; gap: 22px; flex-wrap: wrap; }
+  .logo img { width: 26px; height: 26px; display: block; }
+  nav { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
   nav a {
     color: var(--text-dim);
     text-decoration: none;
@@ -90,7 +93,7 @@
     margin: 0 0 10px;
   }
 
-  .hero { padding-block: 68px 44px; }
+  .hero { padding-block: 60px 12px; }
   h1 {
     font-size: clamp(1.8rem, 4.2vw, 2.7rem);
     line-height: 1.15;
@@ -116,13 +119,66 @@
     font-weight: 600;
     border: 1px solid transparent;
   }
-  .btn-primary { background: var(--accent); color: #06110c; }
+  .btn-primary { background: var(--accent); color: var(--accent-ink); }
   .btn-primary:hover { opacity: 0.88; }
   .btn-secondary {
     border-color: var(--border);
     color: var(--text);
   }
   .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Pipeline motif: a row of connected nodes representing data flowing
+     through stages, echoing the medallion/orchestration work Qualixto does */
+  .pipeline {
+    display: flex;
+    align-items: center;
+    padding-block: 44px;
+    gap: 0;
+  }
+  .pipeline .seg { flex: 1; height: 2px; background: var(--border); position: relative; min-width: 12px; }
+  .pipeline .seg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, var(--blue), var(--accent));
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: flow 3.2s ease-in-out infinite;
+  }
+  .pipeline .seg:nth-child(2)::after { animation-delay: 0.15s; }
+  .pipeline .seg:nth-child(4)::after { animation-delay: 0.3s; }
+  .pipeline .seg:nth-child(6)::after { animation-delay: 0.45s; }
+  .pipeline .seg:nth-child(8)::after { animation-delay: 0.6s; }
+  @keyframes flow {
+    0% { transform: scaleX(0); transform-origin: left; }
+    45% { transform: scaleX(1); transform-origin: left; }
+    55% { transform: scaleX(1); transform-origin: right; }
+    100% { transform: scaleX(0); transform-origin: right; }
+  }
+  .pipeline .node {
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .pipeline .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    background: var(--bg-raised);
+    border: 2px solid var(--blue);
+  }
+  .pipeline .node:nth-child(odd) .dot { border-color: var(--accent); }
+  .pipeline .label {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+  @media (max-width: 720px) {
+    .pipeline .label { display: none; }
+  }
 
   section { padding-block: 52px; border-top: 1px solid var(--border); }
   h2 {
@@ -156,11 +212,7 @@
     align-items: center;
     gap: 8px;
   }
-  .card h3 .tag {
-    font-family: var(--mono);
-    color: var(--accent);
-    font-size: 0.9rem;
-  }
+  .card h3 .spark { width: 14px; height: 14px; flex: none; }
   .card p { color: var(--text-dim); margin: 0; font-size: 0.94rem; }
 
   .stack-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
@@ -198,18 +250,19 @@
   .project h3 { margin: 0 0 10px; font-size: 1.08rem; }
   .project p { margin: 0 0 10px; color: var(--text-dim); font-size: 0.94rem; }
   .project ul {
+    list-style: none;
     margin: 10px 0 0;
-    padding-left: 18px;
+    padding: 0;
     color: var(--text-dim);
     font-size: 0.9rem;
   }
-  .project li { margin-bottom: 4px; }
-  .impact {
-    font-family: var(--mono);
-    font-size: 0.85rem;
-    color: var(--accent);
-    margin-top: 10px;
+  .project li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 6px;
   }
+  .project li .spark { width: 11px; height: 11px; flex: none; margin-top: 4px; }
 
   .contact-grid {
     display: grid;
@@ -239,19 +292,24 @@
     color: var(--text-dim);
     font-size: 0.85rem;
     display: flex;
+    align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 10px;
   }
   footer a { color: var(--text-dim); }
   footer a:hover { color: var(--accent); }
+  footer img { width: 16px; height: 16px; vertical-align: -3px; margin-right: 6px; opacity: 0.7; }
 </style>
 </head>
 <body>
 <div class="wrap">
 
   <header>
-    <a class="logo" href="#top"><span class="dot">▮</span>Qualixto</a>
+    <a class="logo" href="#top">
+      <img src="assets/qualixto-icon.svg" alt="" width="26" height="26">
+      Qualixto
+    </a>
     <nav>
       <a href="#what-we-do">What we do</a>
       <a href="#projects">Past projects</a>
@@ -262,16 +320,31 @@
 
   <section class="hero" id="top">
     <p class="kicker">Data &amp; AI Platform Engineering</p>
-    <h1>We build data platforms your engineers can trust — and ship them ourselves.</h1>
+    <h1>We build data platforms your engineers can trust — and teach your team to run them.</h1>
     <p class="lede">
       Qualixto is an independent consultancy for hands-on cloud data platform engineering.
       We architect and personally build production pipelines, data products, and governance
-      frameworks for regulated financial services and investment management — no bench of
-      juniors, no slideware, just working systems.
+      frameworks for regulated financial services and investment management — then mentor the
+      engineers who take them forward. No slideware, just working systems and the people who
+      can own them.
     </p>
     <div class="btn-row">
       <a class="btn btn-primary" href="#book">Book a consultancy call</a>
       <a class="btn btn-secondary" href="#projects">See past projects</a>
+    </div>
+
+    <div class="pipeline" aria-hidden="true">
+      <div class="node"><span class="dot"></span><span class="label">ingest</span></div>
+      <div class="seg"></div>
+      <div class="node"><span class="dot"></span><span class="label">raw</span></div>
+      <div class="seg"></div>
+      <div class="node"><span class="dot"></span><span class="label">stage</span></div>
+      <div class="seg"></div>
+      <div class="node"><span class="dot"></span><span class="label">curate</span></div>
+      <div class="seg"></div>
+      <div class="node"><span class="dot"></span><span class="label">contract</span></div>
+      <div class="seg"></div>
+      <div class="node"><span class="dot"></span><span class="label">product</span></div>
     </div>
   </section>
 
@@ -283,36 +356,37 @@
     </p>
     <div class="grid-3">
       <div class="card">
-        <h3><span class="tag">01</span>Platform architecture</h3>
+        <h3><img class="spark" src="assets/sparkle.svg" alt="">Platform architecture</h3>
         <p>Cloud data lakehouse and orchestration platforms on AWS, Azure, or GCP — medallion
         architectures, domain-driven data products, and orchestration built to be handed over,
         not to create dependency.</p>
       </div>
       <div class="card">
-        <h3><span class="tag">02</span>Hands-on pipeline delivery</h3>
+        <h3><img class="spark" src="assets/sparkle.svg" alt="">Hands-on pipeline delivery</h3>
         <p>Production dbt models and Python pipelines with schema validation, contracts, lineage,
         and automated testing — written and shipped by us, not just designed on a whiteboard.</p>
       </div>
       <div class="card">
-        <h3><span class="tag">03</span>Governance &amp; compliance</h3>
+        <h3><img class="spark" src="assets/sparkle.svg" alt="">Governance &amp; compliance</h3>
         <p>Data contracts, RBAC, classification, and audit-ready governance for regulated
         environments — banking, lending, investment management, and energy.</p>
       </div>
       <div class="card">
-        <h3><span class="tag">04</span>CI/CD &amp; platform hygiene</h3>
+        <h3><img class="spark" src="assets/sparkle.svg" alt="">CI/CD &amp; platform hygiene</h3>
         <p>Release process modernisation, GitFlow adoption, pre-commit standards, and branch
         protection across large multi-repo estates that have stalled or drifted.</p>
       </div>
       <div class="card">
-        <h3><span class="tag">05</span>AI-ready foundations</h3>
+        <h3><img class="spark" src="assets/sparkle.svg" alt="">AI-ready foundations</h3>
         <p>Governed data platforms built so LLM and analytics workloads have trustworthy,
         well-modelled data to sit on top of — plus direct experience shipping Bedrock and
         SageMaker-backed pipelines.</p>
       </div>
       <div class="card">
-        <h3><span class="tag">06</span>Team &amp; standards building</h3>
-        <p>Embedded engagements that leave behind not just a platform but the delivery
-        standards, roles, and practices a growing data team needs to run it well.</p>
+        <h3><img class="spark" src="assets/sparkle.svg" alt="">Mentoring &amp; team building</h3>
+        <p>Embedded engagements that grow junior and mid-level engineers alongside the platform —
+        pairing, code review, and the delivery standards a team needs to own what we build
+        together.</p>
       </div>
     </div>
     <div class="stack-pills">
@@ -351,9 +425,9 @@
           Led release process modernisation and dbt/Dagster pipeline delivery across trading,
           research, and reconciliation data products.</p>
           <ul>
-            <li>Unblocked 140+ commits stuck in long-lived branches by introducing GitFlow</li>
-            <li>Extended an existing raw / staging / curated / use-case medallion pattern</li>
-            <li>Piloted the Open Data Contract Standard and freshness/volume observability</li>
+            <li><img class="spark" src="assets/sparkle.svg" alt="">Unblocked 140+ commits stuck in long-lived branches by introducing GitFlow</li>
+            <li><img class="spark" src="assets/sparkle.svg" alt="">Extended an existing raw / staging / curated / use-case medallion pattern</li>
+            <li><img class="spark" src="assets/sparkle.svg" alt="">Piloted the Open Data Contract Standard and freshness/volume observability</li>
           </ul>
         </div>
       </div>
@@ -368,9 +442,9 @@
           <p>As the first data hire, architected and hand-coded a Python, Dagster, and dbt
           platform on Azure and Snowflake, replacing legacy Java integration patterns end to end.</p>
           <ul>
-            <li>Cut new source-system connector delivery from 3–5 months to 2–3 weeks</li>
-            <li>Established data contracts, schema evolution, lineage, and automated testing</li>
-            <li>Grew the data function from one specialist hire to a seven-person team</li>
+            <li><img class="spark" src="assets/sparkle.svg" alt="">Cut new source-system connector delivery from 3–5 months to 2–3 weeks</li>
+            <li><img class="spark" src="assets/sparkle.svg" alt="">Established data contracts, schema evolution, lineage, and automated testing</li>
+            <li><img class="spark" src="assets/sparkle.svg" alt="">Grew the data function from one specialist hire to a seven-person team</li>
           </ul>
         </div>
       </div>
@@ -386,9 +460,9 @@
           integration programme consolidating multiple acquired businesses into one regulated
           banking platform.</p>
           <ul>
-            <li>Built and led the data function from 7 to 22 engineers</li>
-            <li>Delivered a single customer view for regulatory and operational reporting</li>
-            <li>Established an operating model for batch and real-time data products</li>
+            <li><img class="spark" src="assets/sparkle.svg" alt="">Built and led the data function from 7 to 22 engineers</li>
+            <li><img class="spark" src="assets/sparkle.svg" alt="">Delivered a single customer view for regulatory and operational reporting</li>
+            <li><img class="spark" src="assets/sparkle.svg" alt="">Established an operating model for batch and real-time data products</li>
           </ul>
         </div>
       </div>
@@ -404,8 +478,8 @@
           business, and built AWS/Snowflake pipelines using SageMaker and Bedrock for
           LLM-driven deal automation in a regulated energy environment.</p>
           <ul>
-            <li>Automated ETL and CI/CD for near-real-time lending data products</li>
-            <li>Delivered production dbt and Airflow patterns for lineage and testing</li>
+            <li><img class="spark" src="assets/sparkle.svg" alt="">Automated ETL and CI/CD for near-real-time lending data products</li>
+            <li><img class="spark" src="assets/sparkle.svg" alt="">Delivered production dbt and Airflow patterns for lineage and testing</li>
           </ul>
         </div>
       </div>
@@ -437,7 +511,7 @@
   </section>
 
   <footer>
-    <span>© <span id="year"></span> Qualixto Ltd. London, UK.</span>
+    <span><img src="assets/qualixto-icon.svg" alt="">© <span id="year"></span> Qualixto Ltd. London, UK.</span>
     <span><a href="mailto:hello@qualixto.com">hello@qualixto.com</a> · <a href="https://github.com/jitsejan" target="_blank" rel="noopener">GitHub</a></span>
   </footer>
 
