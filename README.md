@@ -35,6 +35,15 @@ One-time setup:
 - [x] Booking link in `index.html` (`#book` section) points to the real
       Google Calendar booking page.
 - [ ] Confirm `contact@qualixto.com` is set up in Google Workspace and receiving mail.
-- [ ] Verify DNS + HTTPS on qualixto.com (GitHub Pages auto-provisions a cert
+- [x] Verify DNS + HTTPS on qualixto.com (GitHub Pages auto-provisions a cert
       once DNS resolves).
-- [ ] Verify qualixto.co.uk redirects (301) to the equivalent qualixto.com page.
+- [x] Verify qualixto.co.uk redirects (301) to the equivalent qualixto.com page.
+
+## qualixto.co.uk email
+
+Not set up, and intentionally out of scope. `qualixto.co.uk` is kept registered
+and redirecting purely for brand protection (so it can't be squatted), but all
+real email goes through `qualixto.com`. Adding it as a Google Workspace domain
+alias hit a "domain already used as an alias or domain" error tied to a
+pre-existing `google-site-verification` TXT record; not worth chasing further
+given the domain isn't used for anything but the redirect.
