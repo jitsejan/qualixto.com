@@ -34,7 +34,7 @@ One-time setup:
 
 - [x] Booking link in `index.html` (`#book` section) points to the real
       Google Calendar booking page.
-- [ ] Confirm `hello@qualixto.com` is set up in Google Workspace and receiving mail.
+- [ ] Confirm `contact@qualixto.com` is set up in Google Workspace and receiving mail.
 - [ ] Verify DNS + HTTPS on qualixto.com (GitHub Pages auto-provisions a cert
       once DNS resolves).
 - [ ] Verify qualixto.co.uk redirects (301) to the equivalent qualixto.com page.
